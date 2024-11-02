@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+}
+
+.calculator {
+    border: 6px solid #6dacd5;
+    padding: 20px;
+    margin: 20px;
+    width: 400px;
+}
+
+#display {
+    width: 100%;
+    height: 50px;
+    font-size: 24px;
+    text-align: right;
+    margin-bottom: 15px;
+    padding: 10px;
+    color: gray; /* Цвет текста */
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 60px); /* Высота строк */
+    gap: 10px;
+}
+
+button {
+    height: 60px;
+    font-size: 24px;
+    cursor: pointer;
+    border: none;
+    background-color: #e7e7e7;
+    transition: background-color 0.3s;
+}
+
+.double-height {
+    grid-row: span 2; /* Занимает две строки в сетке */
+    height: 130px; /* Можно добавить высоту для более четкого отображения */
+}
+
+.double-width {
+    grid-column: span 2; /* Ширина в два раза больше обычной кнопки */
+}
