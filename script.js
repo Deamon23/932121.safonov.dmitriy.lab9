@@ -2,45 +2,49 @@ let display = document.getElementById('display');
 let expression = '';
 
 function appendToDisplay(value) {
-    // Проверяем, чтобы не добавлять два оператора подряд
+
     const lastChar = expression[expression.length - 1];
     if ((lastChar === '+' || lastChar === '-' || lastChar === '*' || lastChar === '/') && (value === '+' || value === '-' || value === '*' || value === '/')) {
-        return; // Игнорируем добавление, если последний символ - оператор
+        return;
     }
 
-    // Добавляем пробел перед оператором, если это не первый символ
     if (expression.length > 0 && (value === '+' || value === '-' || value === '*' || value === '/')) {
-        expression += ' '; // Добавляем пробел перед оператором
+        expression += ' '; 
     }
+    
+    expression += value;
 
-    expression += value; // Добавляем к полному выражению
-
-    // Добавляем пробел после оператора, если это не последний символ
     if (expression.length > 1 && !isNaN(lastChar) && (value === '+' || value === '-' || value === '*' || value === '/')) {
-        expression += ' '; // Добавляем пробел после оператора
+        expression += ' '; 
     }
 
-    display.value = expression; // Обновляем дисплей
+    updateDisplay(); 
 }
 
 function clearDisplay() {
-    expression = ''; // Очищаем полное выражение
-    display.value = '';
+    expression = ''; 
+    display.innerHTML = ''; 
 }
 
 function removeLast() {
-    expression = expression.slice(0, -1); // Удаляем последний символ из полного выражения
-    display.value = expression; // Обновляем дисплей
+    expression = expression.slice(0, -1); 
+    updateDisplay(); 
 }
 
 function calculateResult() {
     try {
-        // Используем функцию new Function для вычисления выражения
-        let result = new Function('return ' + expression.replace(/\s+/g, ''))(); // Убираем пробелы при вычислении
-        display.value = result; // Показываем результат
-        expression = result.toString(); // Обновляем выражение на результат
+        let result = eval(expression.replace(/\s+/g, ''));
+        result = Math.round(result * 100) / 100; 
+        display.innerHTML = `<span style="color: black;">${result}</span>`;
+        expression = result.toString(); 
     } catch (error) {
-        display.value = 'Error'; // Обработка ошибок
-        expression = ''; // Очищаем выражение при ошибке
+        expression = '';
     }
+}
+
+function updateDisplay() {
+    const parts = expression.split(' ').map((part, index) => {
+        return `<span style="color: ${index === expression.split(' ').length - 1 ? 'black' : 'gray'};">${part}</span>`;
+    });
+    display.innerHTML = parts.join(' ');
 }
