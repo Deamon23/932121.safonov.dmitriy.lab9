@@ -7,7 +7,7 @@ function appendToDisplay(value) {
     const lastChar3 = expression[expression.length - 3];
     const parts = expression.trim().split(' ');
 
-    if(value === '0' && lastChar === '0' && !(parts[parts.length - 1].includes('.')))return;
+    if(value === '0' && lastChar === '0' && !(parts[parts.length - 1].includes('.'))&& (parts[parts.length - 1][0]==0))return;
 
     if(value === '.'){
         if (lastChar === '.')return;
