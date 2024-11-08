@@ -5,10 +5,12 @@ function appendToDisplay(value) {
 
     const lastChar = expression[expression.length - 1];
     const lastChar3 = expression[expression.length - 3];
+    const parts = expression.trim().split(' ');
+
+    if(value === '0' && lastChar === '0' && !(parts[parts.length - 1].includes('.')))return;
 
     if(value === '.'){
         if (lastChar === '.')return;
-        const parts = expression.trim().split(' ');
         if(parts[parts.length - 1].includes('.'))return;
     }
 
@@ -84,7 +86,7 @@ function calculateResult() {
 
     if(expression.length>0) { 
         let result = eval(expression.replace(/\s+/g, '')); 
-        result = Math.round(result * 100) / 100; 
+        result = Math.round(result * 100000) / 100000; 
         display.innerHTML = `<span style="color: black;">${result}</span>`; 
         expression = result.toString(); 
     }
