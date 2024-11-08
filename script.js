@@ -29,7 +29,7 @@ function appendToDisplayOper(value) {
         return;
     } 
     
-    if (lastChar3 === '*' || lastChar3 === '/') {
+    if ((lastChar3 === '*' || lastChar3 === '/') && ('*/+-'.includes(lastChar))) {
         if (value !== '-') {
             expression = expression.slice(0, -3) + value; 
             updateDisplay();
@@ -65,7 +65,14 @@ function removeLast() {
 }
 
 function calculateResult() {
-    try {
+    const divisionByZeroPattern = /\/\s*0/; 
+    if (divisionByZeroPattern.test(expression)) {
+        display.innerHTML = '<span style="color: gray;"> Ошибка </span>';
+        expression = ''; 
+        return;
+    }
+
+    if(expression.length>0) try {
         let result = eval(expression.replace(/\s+/g, '')); 
         result = Math.round(result * 100) / 100; 
         display.innerHTML = `<span style="color: black;">${result}</span>`; 
