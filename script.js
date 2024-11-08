@@ -75,7 +75,7 @@ function calculateResult() {
         expression = expression.slice(0, -1);
     }
 
-    const divisionByZeroPattern = /\/\s*0/; 
+    const divisionByZeroPattern = /\/\s*[.\s]*0/; 
     if (divisionByZeroPattern.test(expression)) {
         display.innerHTML = '<span style="color: gray;"> Ошибка </span>';
         expression = ''; 
