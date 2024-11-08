@@ -10,7 +10,7 @@ function appendToDisplay(value) {
         return;
     }
 
-    if (lastChar === '-' && (lastChar3 === '*' || lastChar3 === '/')) {
+    if (lastChar === '-' && ((lastChar3 === '*' || lastChar3 === '/') || expression.length === 1)) {
         expression += value;
     } else if ('*/+-'.includes(lastChar)) {
         expression += ' ' + value;
