@@ -65,6 +65,10 @@ function removeLast() {
 }
 
 function calculateResult() {
+    while (expression.endsWith(' ') || expression.endsWith('+') || expression.endsWith('-') || expression.endsWith('*') || expression.endsWith('/')) {
+        expression = expression.slice(0, -1);
+    }
+
     const divisionByZeroPattern = /\/\s*0/; 
     if (divisionByZeroPattern.test(expression)) {
         display.innerHTML = '<span style="color: gray;"> Ошибка </span>';
@@ -72,13 +76,11 @@ function calculateResult() {
         return;
     }
 
-    if(expression.length>0) try {
+    if(expression.length>0) { 
         let result = eval(expression.replace(/\s+/g, '')); 
         result = Math.round(result * 100) / 100; 
         display.innerHTML = `<span style="color: black;">${result}</span>`; 
         expression = result.toString(); 
-    } catch (error) {
-        expression = ''; 
     }
 }
 
