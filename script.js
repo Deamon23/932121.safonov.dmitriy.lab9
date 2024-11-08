@@ -6,8 +6,10 @@ function appendToDisplay(value) {
     const lastChar = expression[expression.length - 1];
     const lastChar3 = expression[expression.length - 3];
 
-    if(lastChar === '.' && value === '.'){
-        return;
+    if(value === '.'){
+        if (lastChar === '.')return;
+        const parts = expression.trim().split(' ');
+        if(parts[parts.length - 1].includes('.'))return;
     }
 
     if (lastChar === '-' && ((lastChar3 === '*' || lastChar3 === '/') || expression.length === 1)) {
