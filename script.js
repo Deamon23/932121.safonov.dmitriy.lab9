@@ -4,21 +4,51 @@ let expression = '';
 function appendToDisplay(value) {
 
     const lastChar = expression[expression.length - 1];
-    if ((lastChar === '+' || lastChar === '-' || lastChar === '*' || lastChar === '/') && (value === '+' || value === '-' || value === '*' || value === '/')) {
-        return; 
+    const lastChar3 = expression[expression.length - 3];
+
+    if (lastChar === '-' && (lastChar3 === '*' || lastChar3 === '/')) {
+        expression += value;
+    } else if ('*/+-'.includes(lastChar)) {
+        expression += ' ' + value;
+    } else {
+        expression += value;
     }
-
-    if (expression.length > 0 && (value === '+' || value === '-' || value === '*' || value === '/')) {
-        expression += ' '; 
-    }
-
-    expression += value; 
-
     updateDisplay();
+}
+
+function appendToDisplayOper(value) {
+
+    const lastChar = expression[expression.length - 1];
+    const lastChar3 = expression[expression.length - 3];
     
-    if (expression.length > 1 && !isNaN(lastChar) && (value === '+' || value === '-' || value === '*' || value === '/')) {
-        expression += ' ';
+    if (expression.length === 0) {
+        if (value === '-') {
+            expression += value; 
+            updateDisplay();
+        }
+        return;
+    } 
+    
+    if (lastChar3 === '*' || lastChar3 === '/') {
+        if (value !== '-') {
+            expression = expression.slice(0, -3) + value; 
+            updateDisplay();
+        }
+        return;
     }
+    
+    if ('*/+-'.includes(lastChar)) {
+        if (value === '-' && (lastChar === '*' || lastChar === '/')) {
+            expression += ' ' + value; 
+        } else {
+            expression = expression.slice(0, -1) + value; 
+        }
+        updateDisplay();
+        return;
+    }
+    
+    expression += ' ' + value; 
+    updateDisplay();
 }
 
 function clearDisplay() {
@@ -29,7 +59,7 @@ function clearDisplay() {
 function removeLast() {
     expression = expression.slice(0, -1);
     while (expression.endsWith(' ')) {
-        expression = expression.slice(0, -1); 
+        expression = expression.slice(0, -1);
     }
     updateDisplay();
 }
