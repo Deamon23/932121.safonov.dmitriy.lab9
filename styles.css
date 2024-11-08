@@ -4,6 +4,8 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+
+
 .calculator {
     border: 6px solid #6dacd5;
     padding: 20px;
@@ -30,6 +32,10 @@
 button {
     background: linear-gradient(white, lightgray);
     border: 1px solid black; 
+}
+
+button:hover{
+    border: 2px solid #6dacd5;
 }
 
 .double-height {
